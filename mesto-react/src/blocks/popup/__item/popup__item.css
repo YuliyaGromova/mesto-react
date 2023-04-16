@@ -1,0 +1,17 @@
+.popup__item {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  border-bottom: 1px solid #bcbcc4;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.popup__item:focus {
+  outline-style: none;
+}

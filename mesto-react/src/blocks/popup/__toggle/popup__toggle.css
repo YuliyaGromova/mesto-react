@@ -1,0 +1,19 @@
+.popup__toggle {
+  position: relative;
+  align-self: flex-end;
+  top: -40px;
+  right: -40px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popup__toggle:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 950px) {
+  .popup__toggle {
+    top: -36px;
+    right: 0;
+  }
+}

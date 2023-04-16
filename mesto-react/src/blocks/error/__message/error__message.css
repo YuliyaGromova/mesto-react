@@ -1,0 +1,7 @@
+.error__message {
+    margin: 0;
+    padding: 0;
+    padding-top: 5vh;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}

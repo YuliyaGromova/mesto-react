@@ -1,0 +1,13 @@
+.popup__toggle-image {
+  object-fit: cover;
+  object-position: center;
+  width: 32px;
+  height: 32px;
+}
+
+@media screen and (max-width: 950px) {
+  .popup__toggle-image {
+    width: 20px;
+    height: 20px;
+  }
+}

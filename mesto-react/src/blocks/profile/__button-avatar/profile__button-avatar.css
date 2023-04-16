@@ -1,0 +1,11 @@
+.profile__button-avatar {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    order: 2;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+}
+
+.profile__button-avatar:hover {
+    opacity: 1;
+}

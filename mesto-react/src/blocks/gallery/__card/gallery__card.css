@@ -1,0 +1,24 @@
+.gallery__card {
+  margin: 0;
+  padding: 0;
+  width: calc((100% + 17px) / 3 - 17px);
+  background-color: #fff;
+  border-radius: 10px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+@media screen and (max-width: 950px) {
+  .gallery__card {
+    width: calc((100% + 17px) / 2 - 17px);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .gallery__card {
+    width: 100%;
+  }
+}

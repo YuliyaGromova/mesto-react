@@ -1,0 +1,13 @@
+.logo {
+  max-width: 142px;
+  object-fit: cover;
+  object-position: top;
+  padding: 0 0 40px 0;
+}
+
+@media screen and (max-width: 950px) {
+  .logo {
+    max-width: calc(266px * 0.39);
+    padding: 0 0 30px calc((100vw - 104px) / 8);
+  }
+}
