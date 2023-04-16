@@ -11,7 +11,7 @@ function App() {
     React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState("");
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("");
@@ -24,7 +24,6 @@ function App() {
       api.getInitialCards(),
     ])
       .then((data) => {
-        const userId = data[0]._id;
         setUserName(data[0].name);
         setUserDescription(data[0].about);
         setUserAvatar(data[0].avatar);
@@ -63,7 +62,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
-    setSelectedCard('');
+    setSelectedCard("");
   }
   return (
     <div className="page">
