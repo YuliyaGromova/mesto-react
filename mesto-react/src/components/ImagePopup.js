@@ -4,11 +4,7 @@ function ImagePopup(props) {
   const card= props.card;
   return (
     <section
-      className={
-        card
-          ? "popup popup_place_bigphoto popup_opened"
-          : "popup popup_place_bigphoto"
-      }
+      className="popup popup_place_bigphoto popup_opened"
       id="popupOpenPic"
     >
       <div className="popup__place-info">
@@ -26,8 +22,8 @@ function ImagePopup(props) {
         </button>
         <img
           className="popup__photo"
-          alt="фотография места"
-          src={(card)? card.link: ''}
+          alt={card.name}
+          src={(card)? card?.link: ''}
         />
         <h2 className="popup__subtitle">{card.name}</h2>
       </div>

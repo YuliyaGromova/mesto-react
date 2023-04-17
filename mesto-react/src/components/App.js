@@ -1,17 +1,17 @@
 import React from "react";
-import Header from "./components/Header.js";
-import Main from "./components/Main.js";
-import Footer from "./components/Footer.js";
-import PopupWithForm from "./components/PopupWithForm.js";
-import ImagePopup from "./components/ImagePopup.js";
-import api from "./utils/Api.js";
+import Header from "./Header.js";
+import Main from "./Main.js";
+import Footer from "./Footer.js";
+import PopupWithForm from "./PopupWithForm.js";
+import ImagePopup from "./ImagePopup.js";
+import api from "../utils/Api.js";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState("");
+  const [selectedCard, setSelectedCard] = React.useState(null);
   const [userName, setUserName] = React.useState("");
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("");
@@ -33,14 +33,9 @@ function App() {
       .catch((err) => {
         //попадаем сюда если один из промисов завершаться ошибкой
         console.log(err);
-        disabledAll();
       });
   }, []);
 
-  function disabledAll() {
-    document.querySelector(".content").classList.add("content_disabled");
-    document.querySelector(".error").classList.add("error_active");
-  }
 
   function handleCardClick(card) {
     setSelectedCard(card);
@@ -62,7 +57,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
-    setSelectedCard("");
+    setSelectedCard(null);
   }
   return (
     <div className="page">
@@ -77,16 +72,12 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
       />
-      <section className="error">
-        <h2 className="error__message">
-          По техническим причинам страница недоступна. Попробуйте позднее...
-        </h2>
-      </section>
       <Footer />
       {/* редактировать профиль */}
       <PopupWithForm
         title="Редактировать профиль"
         name="popupEdit"
+        nameButton='Сохранить'
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
       >
@@ -112,14 +103,13 @@ function App() {
           required
         />
         <span className="info-profile-error popup__item-error"></span>
-        <button className="popup__submit" type="submit" name="saveEdit">
-          Сохранить
-        </button>
+        
       </PopupWithForm>
       {/* новое место */}
       <PopupWithForm
         title="Новое место"
         name="popupAdd"
+        nameButton='Создать'
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
       >
@@ -143,14 +133,12 @@ function App() {
           required
         />
         <span className="link-error popup__item-error"></span>
-        <button className="popup__submit" type="submit" name="saveAdd">
-          Создать
-        </button>
       </PopupWithForm>
       {/* Обновить аватар */}
       <PopupWithForm
         title="Обновить аватар"
         name="popupEditAvatar"
+        nameButton='Сохранить'
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       >
@@ -163,22 +151,20 @@ function App() {
           required
         />
         <span className="avatar-error popup__item-error"></span>
-        <button className="popup__submit" type="submit" name="saveEdit">
-          Сохранить
-        </button>
       </PopupWithForm>
       {/*Вы уверены? */}
       <PopupWithForm
         title="Вы уверены?"
         name="popupDeleteCard"
+        nameButton="Да"
         onClose={closeAllPopups}
       >
-        <button className="popup__submit" type="submit" name="saveEdit">
-          Да
-        </button>
       </PopupWithForm>
       {/* большая картинка */}
-      <ImagePopup isClose={closeAllPopups} card={selectedCard}></ImagePopup>
+      {
+      (selectedCard) && <ImagePopup isClose={closeAllPopups} card={selectedCard}></ImagePopup>
+      }
+      
     </div>
   );
 }
