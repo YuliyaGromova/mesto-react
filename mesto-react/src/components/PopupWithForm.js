@@ -15,7 +15,7 @@ function PopupWithForm(props) {
         >
           <img className="popup__toggle-image" src={close} alt="закрыть" />
         </button>
-        <form className="popup__edit" name={props.name} noValidate>
+        <form className="popup__edit" name={props.name} onSubmit={props.onSubmit} noValidate>
           <h2 className="popup__heading">{props.title}</h2>
           {props.children}
           <button className="popup__submit" type="submit" name="saveEdit">

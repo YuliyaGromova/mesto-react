@@ -100,6 +100,14 @@ class Api {
     });
   }
 
+  changeLikeCardStatus(cardId, newStateLike) {
+    if (newStateLike) {
+      return this.putLike(cardId);
+    } else {
+      return this.takeOfLike(cardId);
+    }
+  }
+
   // Обновление аватара пользователя
   editAvatar(data) {
     return fetch(this._baseUrl + `/users/me/avatar`, {

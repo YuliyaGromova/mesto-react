@@ -34,7 +34,6 @@
 @import url(./blocks/gallery/__name-place/gallery__name-place.css);
 @import url(./blocks/gallery/__photo/gallery__photo.css);
 @import url(./blocks/gallery/__delete/gallery__delete.css);
-@import url(./blocks/gallery/__delete/gallery__delete_active.css);
 
 /* footer */
 @import url(./blocks/footer/footer.css);
