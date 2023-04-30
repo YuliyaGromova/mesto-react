@@ -2,9 +2,10 @@ import React from "react";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
-import PopupWithForm from "./PopupWithForm.js";
+//import PopupWithForm from "./PopupWithForm.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
+import RequestConfirmationPopup from "./RequestConfirmationPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
 import ImagePopup from "./ImagePopup.js";
 import api from "../utils/Api.js";
@@ -17,7 +18,7 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
-  
+  const [isRequestConfirmationPopupOpen, setIsRequestConfirmationPopupOpen] = React.useState(false);
   const [cards, setCards] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -41,23 +42,34 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
   }
-
+  
+  // вызов попапа изменения аватара
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   }
 
+  // вывов попапа редактирования имени и имформации
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
   }
 
+  // вызов попапа добавления новой карточки
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
   }
 
+  // вызов попапа подтверждающего удаление карточки
+  function handleDeleteCardClick(card) {
+    setIsRequestConfirmationPopupOpen(true);
+    setSelectedCard(card);
+  }
+
+  // сбрасываем все стейты
   function closeAllPopups() {
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
+    setIsRequestConfirmationPopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -70,14 +82,19 @@ function App() {
     });
   }
 
+  // удаление карточки
   function handleCardDelete(card) {
     api.deleteCardApi(card._id)
     .then(()=>{
-      setCards((state) => state.filter((c) => c._id !== card._id))
+      setCards((state) => state.filter((c) => c._id !== card._id));
+      closeAllPopups();
     })
-    //доптсать
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
+  // обновление данных пользоыателя
   function handleUpdateUser(data) {
     api.editUserInfo(data)
     .then((res) => {
@@ -91,6 +108,7 @@ function App() {
     
   }
 
+  // обновлените аватара
   function handleUpdateAvatar(data) {
     api.editAvatar(data)
     .then((res)=> {
@@ -104,6 +122,7 @@ function App() {
     )
   }
 
+  // добавление новой карточки
   function handleUpdateCards(data) {
     api.addNewCard(data)
     .then((newCard)=>{
@@ -127,7 +146,7 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
         onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
+        onCardDelete={handleDeleteCardClick}
       />
       </CurrentUserContext.Provider>
       <Footer />
@@ -142,18 +161,13 @@ function App() {
       {/* Обновить аватар */}
       
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
-      </CurrentUserContext.Provider>
+      
       {/*Вы уверены? */}
-      <PopupWithForm
-        title="Вы уверены?"
-        name="popupDeleteCard"
-        nameButton="Да"
-        onClose={closeAllPopups}
-      >
-      </PopupWithForm>
+        <RequestConfirmationPopup isOpen={isRequestConfirmationPopupOpen} onClose={closeAllPopups} onUpdateCardDelete={handleCardDelete} card={selectedCard}/> 
+      </CurrentUserContext.Provider>
       {/* большая картинка */}
       {
-      (selectedCard) && <ImagePopup isClose={closeAllPopups} card={selectedCard}></ImagePopup>
+      (selectedCard)&& !isRequestConfirmationPopupOpen && <ImagePopup isClose={closeAllPopups} card={selectedCard}></ImagePopup>
       }
       
     </div>
