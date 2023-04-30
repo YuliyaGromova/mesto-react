@@ -3,7 +3,7 @@ import close from "../images/close.svg";
 function PopupWithForm(props) {
   return (
     <section
-      className={props.isOpen ? "popup popup_opened" : "popup"}
+      className={(props.isOpen)? "popup popup_opened" : "popup"}
       id={props.name}
     >
       <div className="popup__container">
