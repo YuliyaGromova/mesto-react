@@ -9,8 +9,8 @@ function Card(props) {
   function handleCardLike() {
     props.onCardLike(card);
   }
-  function handleDeleteCardClick() {
-    props.onCardDelete(props.card)
+  function handleDeleteClick() {
+    props.onCardDelete(card)
   }
 
   const context= React.useContext(CurrentUserContext);
@@ -19,7 +19,7 @@ function Card(props) {
 
   return (
     <li className="gallery__card">
-      {isOwn && <button className="gallery__delete button" onClick={handleDeleteCardClick}/>}
+      {isOwn && <button className="gallery__delete button" onClick={handleDeleteClick}/>} 
       <div
         className="gallery__photo"
         style={{ backgroundImage: `url(${card.link})` }}
